@@ -7,9 +7,9 @@ public class PlayerPositionMessage : GameMessage
     public SerializableQuaternion currentRot;
     public SerializableVector3 currentPos;
     public SerializableVector3 enemyPos;
+    public int seq;
     public string player;
     public string moving;
-    public int seq;
 
     public PlayerPositionMessage(string actionIn, string opcodeIn, SerializableQuaternion _gunRot, SerializableQuaternion _currentRot, 
                                 SerializableVector3 _currentPos, SerializableVector3 _enemyPos, string playerIn, string _moving, int _seq)

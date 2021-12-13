@@ -87,12 +87,12 @@ exports.handler = (event, context, callback) => {
 
                   // Init the players to opposite sides of arena
                   let p1StartPos = {
-                     x: -13,
+                     x: -20,
                      y: 10,
                      z: 0
                   };
                   let p2StartPos = {
-                     x: 13,
+                     x: 20,
                      y: -10,
                      z: 0
                   };
@@ -110,7 +110,7 @@ exports.handler = (event, context, callback) => {
                      ', "currentRot": ' + buildQuaternionObject(initRotation) + 
                      ', "currentPos": ' + buildPositionObject(p1StartPos) +
                      ', "enemyPos": ' + buildPositionObject(p2StartPos) + 
-                     ', "seq" : ' + message.seq + 
+                     ', "seq": 0' + 
                      ', "player": "1" }');
 
                   send(data.Items[0].player2, '{ "uuid": ' + data.Items[0].uuid + ', "opcode": ' +
@@ -118,7 +118,7 @@ exports.handler = (event, context, callback) => {
                   ', "currentRot": ' + buildQuaternionObject(initRotation) + 
                   ', "currentPos": ' + buildPositionObject(p2StartPos) +
                   ', "enemyPos": ' + buildPositionObject(p1StartPos) + 
-                  ', "seq" : ' + message.seq + 
+                  ', "seq": 0' + 
                   ', "player": "2" }');
                }
             });
@@ -173,6 +173,7 @@ exports.handler = (event, context, callback) => {
                      ', "gunRot": ' + buildQuaternionObject(message.gunRot) + 
                      ', "currentRot": ' + buildQuaternionObject(message.currentRot) + 
                      ', "currentPos": ' + buildPositionObject(message.currentPos) +  
+                     ', "seq": ' + message.seq + 
                      ', "moving": ' + message.moving + ' }';
                      console.log(posMsg);
 
@@ -186,7 +187,8 @@ exports.handler = (event, context, callback) => {
                   let posMsg = '{ "opcode": ' + OPPONENT_POS_OP + ', "timestamp": ' + Date.now() +
                      ', "gunRot": ' + buildQuaternionObject(message.gunRot) + 
                      ', "currentRot": ' + buildQuaternionObject(message.currentRot) + 
-                     ', "currentPos": ' + buildPositionObject(message.currentPos) + 
+                     ', "currentPos": ' + buildPositionObject(message.currentPos) +
+                     ', "seq": ' + message.seq +  
                      ', "moving": ' + message.moving +' }';
                   console.log(posMsg);
 

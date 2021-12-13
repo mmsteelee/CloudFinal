@@ -25,10 +25,11 @@ public class PlayerController : MonoBehaviour
 
     float speed = 0f;
     Vector3 velocity;
-    int seq = 0;
+    int seq;
 
     private void Start()
     {
+        seq = 0;
         manager = GameObject.Find("GameManager");   
     }
 

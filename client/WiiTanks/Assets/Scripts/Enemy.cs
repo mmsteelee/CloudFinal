@@ -15,13 +15,14 @@ public class Enemy : MonoBehaviour
     private Quaternion desiredRotation;
     private Quaternion desiredGunRotation;
     private bool moving = false;
-    private int seq = 0;
+    private int seq;
 
     public float maxSpeed;
     public float rotationSpeed;
     public float minSpeed = 0.01f;
     void Start()
     {
+        seq = 0;
         enemyPositionMessageQueue = new Queue<PlayerPositionMessage>();
 
         desiredPosition = enemy.transform.position;

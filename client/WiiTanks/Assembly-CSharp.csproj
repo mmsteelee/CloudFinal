@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,11 +53,9 @@
     <UnityVersion>2020.3.24f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Assets\Scripts\SerializableVector3D.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\MenuPlayerController.cs" />
     <Compile Include="Assets\Scripts\GameMessage.cs" />
     <Compile Include="Assets\Scripts\PositionManager.cs" />
     <Compile Include="Assets\Scripts\MenuButton.cs" />
@@ -67,13 +65,13 @@
     <Compile Include="Assets\Scripts\Shooting.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\WebSocketService.cs" />
+    <Compile Include="Assets\Scripts\MenuShooting.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\PlayerPositionMessage.cs" />
     <Compile Include="Assets\Scripts\SerializableQuaternion.cs" />
     <Compile Include="Assets\Scripts\BulletMessage.cs" />
     <Compile Include="Assets\Scripts\UnityMainThreadHelper.cs" />
-    <Compile Include="Assets\Scripts\MenuPlayerController.cs" />
-    <Compile Include="Assets\Scripts\MenuShooting.cs" />
+    <Compile Include="Assets\Scripts\FindNewMatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Materials\TextMesh Pro\Shaders\TMPro.cginc" />
