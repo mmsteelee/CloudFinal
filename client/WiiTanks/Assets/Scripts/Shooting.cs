@@ -19,5 +19,6 @@ public class Shooting : MonoBehaviour
     void Shoot()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        WebSocketService.instance().SendShoot(firePoint.position, firePoint.rotation);
     }
 }

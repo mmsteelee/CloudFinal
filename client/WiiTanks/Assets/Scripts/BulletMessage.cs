@@ -3,7 +3,7 @@ public class BulletMessage : GameMessage
 {
     public SerializableQuaternion gunDir;
     public SerializableVector3 firePoint;
-    BulletMessage(string actionIn, string opcodeIn, SerializableQuaternion _gunDir, SerializableVector3 _firepoint) 
+    public BulletMessage(string actionIn, string opcodeIn, SerializableQuaternion _gunDir, SerializableVector3 _firepoint) 
         : base(actionIn, opcodeIn)
     {
         gunDir = _gunDir;
