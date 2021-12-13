@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(3);
         } else if (result == DISCONNECT)
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(4);
         }
     }
  }

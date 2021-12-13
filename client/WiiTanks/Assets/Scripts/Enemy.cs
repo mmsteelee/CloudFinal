@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public GameObject enemy;
     public GameObject Body;
     public GameObject Gun;
+    public GameObject explosion;
     public Track trackLeft;
     public Track trackRight;
 
@@ -19,7 +20,6 @@ public class Enemy : MonoBehaviour
 
     public float maxSpeed;
     public float rotationSpeed;
-    public float minSpeed = 0.01f;
     void Start()
     {
         seq = 0;
@@ -30,6 +30,18 @@ public class Enemy : MonoBehaviour
         desiredGunRotation = Gun.transform.rotation;
 
         Debug.Log("Enemy start");
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Bullet")
+        {
+            Vector3 expPos = transform.position;
+            expPos.z = -6;
+            GameObject exp = Instantiate(explosion, expPos, Quaternion.identity);
+            enemy.SetActive(false);
+            exp.transform.localScale = new Vector3(10, 10);
+        }
     }
 
     private void FixedUpdate()
@@ -57,15 +69,13 @@ public class Enemy : MonoBehaviour
     private void SetTransform()
     {
         Gun.transform.rotation = desiredGunRotation;
-
-        Vector3 difference = desiredPosition - enemy.transform.position;
-
+        enemy.transform.position = Vector3.Lerp(enemy.transform.position, desiredPosition, maxSpeed * Time.fixedDeltaTime);
+        Body.transform.rotation = Quaternion.Lerp(Body.transform.rotation, desiredRotation, rotationSpeed * Time.fixedDeltaTime);
+        
         if (moving)
         {
             trackStart();
-            enemy.transform.position += difference.normalized * Time.fixedDeltaTime * maxSpeed;
-            
-            Body.transform.rotation = Quaternion.Lerp(Body.transform.rotation, desiredRotation, rotationSpeed * Time.fixedDeltaTime);
+           
         } else
         {
             trackStop();

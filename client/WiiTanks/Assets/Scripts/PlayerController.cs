@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public GameObject Gun;
     public GameObject Body;
     public GameObject manager;
+    public GameObject explosion;
 
     public string keyMoveForward;
     public string keyMoveReverse;
@@ -38,6 +39,12 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             WebSocketService.instance().SendEndGame();
+            Vector3 expPos = transform.position;
+            expPos.z = -6;
+            GameObject exp = Instantiate(explosion, expPos, Quaternion.identity);
+            Body.SetActive(false);
+            Gun.SetActive(false);
+            exp.transform.localScale = new Vector3(10, 10);
         }
     }
 

@@ -145,11 +145,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52b4848f61042445853f3baafb53583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHits: 2
+  maxHits: 3
   rb: {fileID: 1896647003764691525}
   bullet: {fileID: 6410678406612253237}
   explosion: {fileID: 2303601591357147336, guid: da094f077703cd84a8ed5d445f0a2306, type: 3}
-  force: 15
+  force: 20
   maxDist: 50
 --- !u!95 &8084254194884376504
 Animator:

@@ -111,7 +111,7 @@ public class WebSocketService : MonoBehaviour
             {
                 UnityMainThreadHelper.wkr.AddJob(() =>
                 {
-                    gameManager.GameOver(GameManager.WIN);
+                    gameManager.GameOver(GameManager.DISCONNECT);
                 });
             }
         };

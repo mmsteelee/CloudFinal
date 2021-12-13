@@ -32,12 +32,12 @@ public class Bullet : MonoBehaviour
         {
             GameObject exp = Instantiate(explosion, transform.position, transform.rotation);
             Destroy(exp, 0.5f);
-            Destroy(gameObject);
+            Destroy(bullet);
         }
         else
         {
-            Vector3 norm = collision.contacts[0].normal;
-            rb.AddForce(norm.normalized * force, ForceMode2D.Impulse); 
+            Vector3 norm = collision.contacts[0].normal;   
+            rb.AddForce(norm.normalized * (force - 5), ForceMode2D.Impulse); 
             ++numHits;
         }
     }

@@ -330,10 +330,11 @@ MonoBehaviour:
   enemy: {fileID: 1088410879744946941}
   Body: {fileID: 1088410878935299515}
   Gun: {fileID: 1088410880132106801}
+  explosion: {fileID: 2303601591357147336, guid: da094f077703cd84a8ed5d445f0a2306, type: 3}
   trackLeft: {fileID: 1088410879378702227}
   trackRight: {fileID: 1088410880045805715}
-  maxSpeed: 6
-  rotationSpeed: 4
+  maxSpeed: 10
+  rotationSpeed: 10
   minSpeed: 0.001
 --- !u!1 &1088410879781684842
 GameObject:

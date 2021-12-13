@@ -271,13 +271,14 @@ MonoBehaviour:
   Gun: {fileID: 8440132107188633893}
   Body: {fileID: 8440132108370316312}
   manager: {fileID: 0}
+  explosion: {fileID: 2303601591357147336, guid: da094f077703cd84a8ed5d445f0a2306, type: 3}
   keyMoveForward: w
   keyMoveReverse: s
   keyMoveRight: d
   keyMoveLeft: a
-  maxSpeed: 4
+  maxSpeed: 3
   rotationSpeed: 3
-  acceleration: 0.2
+  acceleration: 0.3
   deceleration: 0.3
 --- !u!114 &8440132107705368900
 MonoBehaviour:
