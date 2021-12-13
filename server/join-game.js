@@ -1,8 +1,10 @@
 const AWS = require('aws-sdk');
 const ddb = new AWS.DynamoDB.DocumentClient();
 require('./join-patch.js');
+let send = undefined;
 const TABLE_NAME = "game-session-1"; // your dynamodb table name
 const PLAYING_OP = "11";
+const FOUND_MATCH_OP = "10";
 
 function init(event) {
    const apigwManagementApi = new AWS.ApiGatewayManagementApi({
@@ -55,7 +57,12 @@ function addConnectionId(connectionId) {
             ExpressionAttributeValues: {
                ":p2": connectionId
             }
-         }).promise().then(() => {});
+         }).promise().then(() => {
+            send(data.Items[0].player1, '{ "uuid": ' + data.Items[0].uuid + ', "opcode": ' + FOUND_MATCH_OP +
+               ' }');
+            send(data.Items[0].player2, '{ "uuid": ' + data.Items[0].uuid + ', "opcode": ' + FOUND_MATCH_OP +
+               ' }');
+         });
       }
    });
 }

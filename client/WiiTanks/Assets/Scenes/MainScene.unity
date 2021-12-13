@@ -1196,6 +1196,7 @@ MonoBehaviour:
   playerNum: 
   enemyNum: 
   loadScreen: {fileID: 1114245680}
+  loadScreenText: {fileID: 0}
   positionManager: {fileID: 149104266}
   gameManager: {fileID: 7200545}
   webSocketDns: wss://1phlog4lg0.execute-api.us-east-1.amazonaws.com/Demo
@@ -1656,7 +1657,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1114245681
 RectTransform:
   m_ObjectHideFlags: 0

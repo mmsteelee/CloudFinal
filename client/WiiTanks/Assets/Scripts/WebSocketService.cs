@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using NativeWebSocket;
 
 public class WebSocketService : MonoBehaviour
@@ -12,6 +13,7 @@ public class WebSocketService : MonoBehaviour
     public string playerNum;
     public string enemyNum;
     public GameObject loadScreen;
+    public Text loadScreenText;
     public PositionManager positionManager;
     public GameManager gameManager;
 
@@ -25,6 +27,7 @@ public class WebSocketService : MonoBehaviour
     public const string YouLostOp = "92";
     public const string BulletHitOp = "9";
     public const string OpponentPositionOp = "21";
+    public const string FoundMatchOp = "10";
 
     // Start is called before the first frame update
     static public WebSocketService instance() { 
@@ -40,7 +43,12 @@ public class WebSocketService : MonoBehaviour
     {
         GameMessage gameMessage = JsonUtility.FromJson<GameMessage>(message);
 
-        if (gameMessage.opcode == PlayingOp)
+        if (gameMessage.opcode == FoundMatchOp)
+        {
+            loadScreenText.fontSize = 10;
+            loadScreenText.text = "MatchFound";
+        } 
+        else if (gameMessage.opcode == PlayingOp)
         {
             Debug.Log("Playing op code received: player 2 joined, game started");
             matchId = gameMessage.uuid;
@@ -61,6 +69,7 @@ public class WebSocketService : MonoBehaviour
 
             matchInitialized = true;
 
+            Debug.Log("Turning loading screen off");
             loadScreen.SetActive(false);
         }
         else if (gameMessage.opcode == OpponentPositionOp)
