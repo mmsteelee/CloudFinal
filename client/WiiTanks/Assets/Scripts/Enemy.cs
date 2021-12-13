@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     private Vector3 desiredPosition;
     private Quaternion desiredRotation;
     private Quaternion desiredGunRotation;
+    private bool moving = false;
 
     public float maxSpeed;
     public float rotationSpeed;
@@ -40,6 +41,7 @@ public class Enemy : MonoBehaviour
                 desiredPosition = enemyPositionToRender.currentPos;
                 desiredRotation = enemyPositionToRender.currentRot;
                 desiredGunRotation = enemyPositionToRender.gunRot;
+                moving = enemyPositionToRender.moving == "yes";
             }
 
             SetTransform();
@@ -52,7 +54,7 @@ public class Enemy : MonoBehaviour
 
         Vector3 difference = desiredPosition - enemy.transform.position;
 
-        if (difference.magnitude > minSpeed)
+        if (moving)
         {
             trackStart();
             enemy.transform.position += difference.normalized * Time.fixedDeltaTime * maxSpeed;

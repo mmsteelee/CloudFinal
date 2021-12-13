@@ -53,21 +53,22 @@
     <UnityVersion>2020.3.24f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\SerializableVector3D.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\GameMessage.cs" />
     <Compile Include="Assets\Scripts\PositionManager.cs" />
     <Compile Include="Assets\Scripts\MenuButton.cs" />
+    <Compile Include="Assets\Scripts\Loading.cs" />
     <Compile Include="Assets\Scripts\Track.cs" />
+    <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\Shooting.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Bullet.cs" />
-    <Compile Include="Assets\Scripts\Loading.cs" />
     <Compile Include="Assets\Scripts\WebSocketService.cs" />
-    <Compile Include="Assets\Scripts\GameMessage.cs" />
-    <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\PlayerPositionMessage.cs" />
-    <Compile Include="Assets\Scripts\UnityMainThreadHelper.cs" />
-    <Compile Include="Assets\Scripts\SerializableVector3D.cs" />
     <Compile Include="Assets\Scripts\SerializableQuaternion.cs" />
+    <Compile Include="Assets\Scripts\UnityMainThreadHelper.cs" />
+    <Compile Include="Assets\Scripts\BulletMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Materials\TextMesh Pro\Shaders\TMPro.cginc" />

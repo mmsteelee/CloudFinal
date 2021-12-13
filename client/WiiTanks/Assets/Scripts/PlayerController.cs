@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             WebSocketService.instance().SendEndGame();
-            manager.GetComponent<GameManager>().GameOver(GameManager.LOST);
         }
     }
 
@@ -99,9 +98,12 @@ public class PlayerController : MonoBehaviour
 
         transform.position += velocity * Time.fixedDeltaTime;
 
+        string isMoving = "no";
+
         if (velocity != Vector3.zero)
         {
             trackStart();
+            isMoving = "yes";
 
             float a = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg - 90;
 
@@ -114,7 +116,7 @@ public class PlayerController : MonoBehaviour
             trackStop();
         }
 
-        WebSocketService.instance().SendPosition(transform.position, Body.transform.rotation, Gun.transform.rotation);
+        WebSocketService.instance().SendPosition(transform.position, Body.transform.rotation, Gun.transform.rotation, isMoving);
 
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
         Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
