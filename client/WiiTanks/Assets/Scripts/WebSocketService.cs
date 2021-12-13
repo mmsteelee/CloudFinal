@@ -147,7 +147,7 @@ public class WebSocketService : MonoBehaviour
         SendWebSocketMessage(JsonUtility.ToJson(posMessage));
     }
 
-    public void SendShoot(Vector3 pos, Quaternion rot)
+    public void SendShoot(SerializableVector3 pos, SerializableQuaternion rot)
     {
         BulletMessage message = new BulletMessage("OnMessage", BulletOp, rot, pos);
         message.uuid = matchId;

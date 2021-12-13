@@ -138,9 +138,9 @@ exports.handler = (event, context, callback) => {
 
                console.log("sending throw message to: " + sendToConnectionId);
                send(sendToConnectionId, '{ "uuid": ' + data.Items[0].uuid + 
-                  ', "opcode": ' + THROW_OP + 
-                  ', "gunDir": ' + message.gunDir + 
-                  ', "firePoint:" ' + message.firePoint + ' }');
+                  ', "opcode" : ' + THROW_OP + 
+                  ', "gunDir" : ' + message.gunDir + 
+                  ', "firePoint" : ' + message.firePoint + ' }');
             });
 
             break;
