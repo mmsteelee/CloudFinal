@@ -83,7 +83,6 @@ public class WebSocketService : MonoBehaviour
         else if (gameMessage.opcode == YouLostOp)
         {
             gameManager.GameOver(GameManager.LOST);
-            QuitGame();
         }
         else if (gameMessage.opcode == FirstToJoinOp)
         {
@@ -112,7 +111,7 @@ public class WebSocketService : MonoBehaviour
             {
                 UnityMainThreadHelper.wkr.AddJob(() =>
                 {
-                    gameManager.GameOver(GameManager.DISCONNECT);
+                    gameManager.GameOver(GameManager.WIN);
                 });
             }
         };

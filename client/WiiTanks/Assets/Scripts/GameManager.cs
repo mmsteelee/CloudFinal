@@ -1,31 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
-    public GameObject gameOverScreen;
-    public Text gameOverText;
-
     public const int WIN = 0;
     public const int LOST = 1;
     public const int DISCONNECT = 2;
 
     public void GameOver(int result)
     {
-        gameOverScreen.SetActive(true);
         if (result == WIN)
         {
-            gameOverText.text = "You Won! ;)";
+            SceneManager.LoadScene(2);
         }
         else if (result == LOST)
         {
-            gameOverText.text = "You Lost :(";
+            SceneManager.LoadScene(3);
         } else if (result == DISCONNECT)
         {
-            gameOverText.text = "Player Disconnected";
+            SceneManager.LoadScene(2);
         }
     }
  }
