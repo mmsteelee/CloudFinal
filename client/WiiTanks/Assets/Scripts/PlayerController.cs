@@ -26,11 +26,17 @@ public class PlayerController : MonoBehaviour
     float speed = 0f;
     Vector3 velocity;
 
+    private void Start()
+    {
+        manager = GameObject.Find("GameManager");   
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            manager.GetComponent<GameManager>().GameOver(false);
+            WebSocketService.instance().SendEndGame();
+            manager.GetComponent<GameManager>().GameOver(GameManager.LOST);
         }
     }
 
@@ -39,6 +45,28 @@ public class PlayerController : MonoBehaviour
     /////*******************************************/////
 
     private void FixedUpdate()
+    {
+        PlayerMove();
+    }
+
+
+    /////*******************************************/////
+    /////                METHODS                    /////  
+    /////*******************************************/////
+
+    void trackStart()
+    {
+        trackLeft.animator.SetBool("isMoving", true);
+        trackRight.animator.SetBool("isMoving", true);
+    }
+
+    void trackStop()
+    {
+        trackLeft.animator.SetBool("isMoving", false);
+        trackRight.animator.SetBool("isMoving", false);
+    }
+
+    void PlayerMove()
     {
         Vector3 newDirection = new Vector3(0f, 0f, 0f);
         bool acc = false;
@@ -86,30 +114,13 @@ public class PlayerController : MonoBehaviour
             trackStop();
         }
 
+        WebSocketService.instance().SendPosition(transform.position, Body.transform.rotation, Gun.transform.rotation);
+
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
         Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
         float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
         Gun.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle + 90f));
     }
-
-
-    /////*******************************************/////
-    /////                METHODS                    /////  
-    /////*******************************************/////
-
-    void trackStart()
-    {
-        trackLeft.animator.SetBool("isMoving", true);
-        trackRight.animator.SetBool("isMoving", true);
-    }
-
-    void trackStop()
-    {
-        trackLeft.animator.SetBool("isMoving", false);
-        trackRight.animator.SetBool("isMoving", false);
-    }
-
-
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {

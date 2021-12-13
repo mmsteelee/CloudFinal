@@ -2,13 +2,15 @@ const AWS = require('aws-sdk');
 const ddb = new AWS.DynamoDB.DocumentClient();
 require('./patch.js');
 let send = undefined;
-const TABLE_NAME = "game-session";
+const TABLE_NAME = "game-session-1"; // your dynamodb table name
+const FIRST_TO_JOIN_OP = "0";
 const REQUEST_START_OP = "1";
 const THROW_OP = "5";
 const BLOCK_HIT_OP = "9";
 const YOU_WON = "91";
 const YOU_LOST = "92";
 const PLAYING_OP = "11";
+const OPPONENT_POS_OP = "21";
 
 function init(event) {
    const apigwManagementApi = new AWS.ApiGatewayManagementApi({
@@ -23,12 +25,6 @@ function init(event) {
    }
 }
 
-function getConnections() {
-   return ddb.scan({
-      TableName: TABLE_NAME,
-   }).promise();
-}
-
 function getGameSession(playerId) {
    return ddb.scan({
       TableName: TABLE_NAME,
@@ -41,6 +37,37 @@ function getGameSession(playerId) {
          ":playerId": playerId
       }
    }).promise();
+}
+
+function getGameSessionByMatchUuid(uuid) {
+   return ddb.query({
+      TableName: TABLE_NAME,
+      KeyConditionExpression: "#uuid = :uuid",
+      ExpressionAttributeNames: {
+         "#uuid": "uuid"
+      },
+      ExpressionAttributeValues: {
+         ":uuid": uuid
+      }
+   }).promise();
+}
+
+function opposite(number) {
+   return (-number);
+}
+
+function getRandomInt(min, max) {
+   min = Math.ceil(min);
+   max = Math.floor(max);
+   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function buildPositionObject(position) {
+   return '{ "x": ' + position.x + ', "y": ' + position.y + ', "z": ' + position.z + '}';
+}
+
+function buildQuaternionObject(rotation) {
+   return '{ "x": ' + rotation.x + ', "y": ' + rotation.y + ', "z": ' + rotation.z + ', "w": ' + rotation.w + '}';
 }
 
 exports.handler = (event, context, callback) => {
@@ -64,13 +91,42 @@ exports.handler = (event, context, callback) => {
 
                // we check for closed to handle an edge case where if player1 joins and immediately quits,
                // we mark closed to make sure a player2 can't join an abandoned game session
-               var opcodeStart = "0";
+               var opcodeStart = FIRST_TO_JOIN_OP;
                if (data.Items[0].gameStatus != "closed" && data.Items[0].player2 != "empty") {
                   opcodeStart = PLAYING_OP;
-               }
 
-               send(connectionIdForCurrentRequest, '{ "uuid": ' + data.Items[0].uuid + ', "opcode": ' +
-                  opcodeStart + ' }');
+                  // Init the players to opposite sides of arena
+                  let p1StartPos = {
+                     x: -13,
+                     y: 10,
+                     z: 0
+                  };
+                  let p2StartPos = {
+                     x: 13,
+                     y: -10,
+                     z: 0
+                  };
+
+                  let initRotation = {
+                     x: 0,
+                     y: 0,
+                     z: 0,
+                     w: 0
+                  }
+
+                  //now that we have a 2nd player, also send PlayingOp status to kick off player 1
+                  send(data.Items[0].player1, '{ "uuid": ' + data.Items[0].uuid + ', "opcode": ' +
+                     opcodeStart + ', "gunRot": ' + buildQuaternionObject(initRotation) + 
+                     ', "currentRot": ' + buildQuaternionObject(initRotation) + 
+                     ', "currentPos": ' + buildPositionObject(p1StartPos) +
+                     ', "enemyPos": ' + buildPositionObject(p2StartPos) + ', "player": "1" }');
+
+                  send(data.Items[0].player2, '{ "uuid": ' + data.Items[0].uuid + ', "opcode": ' +
+                  opcodeStart + ', "gunRot": ' + buildQuaternionObject(initRotation) + 
+                  ', "currentRot": ' + buildQuaternionObject(initRotation) + 
+                  ', "currentPos": ' + buildPositionObject(p2StartPos) +
+                  ', "enemyPos": ' + buildPositionObject(p1StartPos) + ', "player": "2" }');
+               }
             });
 
             break;
@@ -97,6 +153,54 @@ exports.handler = (event, context, callback) => {
 
             break;
 
+         case OPPONENT_POS_OP:
+            console.log("opcode " + OPPONENT_POS_OP + " opponent velocity");
+            console.log(message.velocity);
+            console.log(message.uuid);
+
+            getGameSessionByMatchUuid(message.uuid).then((data) => {
+               console.log("getGameSession: %j", data.Items[0]);
+
+               console.log("current connection: %j", connectionIdForCurrentRequest);
+               console.log("Player1: %j", data.Items[0].player1);
+               console.log("Player2: %j", data.Items[0].player2);
+
+               if (data.Items[0].player1 == connectionIdForCurrentRequest) {
+
+                  console.log("current connection: %j", connectionIdForCurrentRequest);
+
+                  if (data.Items[0].player2 != "empty") {
+                     console.log("Sending velocity to player 2: ");
+                     console.log(message.velocity);
+
+                     let posMsg = '{ "opcode": ' + OPPONENT_POS_OP + ', "timestamp": ' + Date.now() +
+                     ', "gunRot": ' + buildQuaternionObject(message.gunRot) + 
+                     ', "currentRot": ' + buildQuaternionObject(message.currentRot) + 
+                     ', "currentPos": ' + buildPositionObject(message.currentPos) +
+                     ', "enemyPos": ' + buildPositionObject(message.enemyPos) + ' }';
+                     console.log(posMsg);
+
+                     // player1 sent location, send loc to player2
+                     send(data.Items[0].player2, posMsg);
+                  }
+
+               } else {
+                  console.log("Sending velocity to player 1: ");
+                  console.log(message.velocity);
+                  let posMsg = '{ "opcode": ' + OPPONENT_POS_OP + ', "timestamp": ' + Date.now() +
+                     ', "gunRot": ' + buildQuaternionObject(message.gunRot) + 
+                     ', "currentRot": ' + buildQuaternionObject(message.currentRot) + 
+                     ', "currentPos": ' + buildPositionObject(message.currentPos) +
+                     ', "enemyPos": ' + buildPositionObject(message.enemyPos) + ' }';
+                  console.log(posMsg);
+
+                  // player2 sent location, send loc to player 1
+                  send(data.Items[0].player1, posMsg);
+               }
+            });
+
+            break;
+
          case BLOCK_HIT_OP: // block hit, send game over
             console.log("opcode 9 hit");
 
@@ -105,12 +209,12 @@ exports.handler = (event, context, callback) => {
 
                if (data.Items[0].player1 == connectionIdForCurrentRequest) {
                   // player1 was the winner
-                  send(data.Items[0].player1, '{ "opcode": ' + YOU_WON + ' }');
-                  send(data.Items[0].player2, '{ "opcode": ' + YOU_LOST + ' }');
-               } else {
-                  // player2 was the winner
                   send(data.Items[0].player1, '{ "opcode": ' + YOU_LOST + ' }');
                   send(data.Items[0].player2, '{ "opcode": ' + YOU_WON + ' }');
+               } else {
+                  // player2 was the winner
+                  send(data.Items[0].player1, '{ "opcode": ' + YOU_WON + ' }');
+                  send(data.Items[0].player2, '{ "opcode": ' + YOU_LOST + ' }');
                }
             });
 
