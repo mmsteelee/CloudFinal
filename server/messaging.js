@@ -166,8 +166,7 @@ exports.handler = (event, context, callback) => {
                      let posMsg = '{ "opcode": ' + OPPONENT_POS_OP + ', "timestamp": ' + Date.now() +
                      ', "gunRot": ' + buildQuaternionObject(message.gunRot) + 
                      ', "currentRot": ' + buildQuaternionObject(message.currentRot) + 
-                     ', "currentPos": ' + buildPositionObject(message.currentPos) +
-                     ', "enemyPos": ' + buildPositionObject(message.enemyPos) + ' }';
+                     ', "currentPos": ' + buildPositionObject(message.currentPos) + ' }';
                      console.log(posMsg);
 
                      // player1 sent location, send loc to player2
@@ -180,8 +179,7 @@ exports.handler = (event, context, callback) => {
                   let posMsg = '{ "opcode": ' + OPPONENT_POS_OP + ', "timestamp": ' + Date.now() +
                      ', "gunRot": ' + buildQuaternionObject(message.gunRot) + 
                      ', "currentRot": ' + buildQuaternionObject(message.currentRot) + 
-                     ', "currentPos": ' + buildPositionObject(message.currentPos) +
-                     ', "enemyPos": ' + buildPositionObject(message.enemyPos) + ' }';
+                     ', "currentPos": ' + buildPositionObject(message.currentPos) +' }';
                   console.log(posMsg);
 
                   // player2 sent location, send loc to player 1

@@ -17,9 +17,11 @@ public class Enemy : MonoBehaviour
 
     public float maxSpeed;
     public float rotationSpeed;
-    public float minSpeed = 0.001f;
+    public float minSpeed = 0.01f;
     void Start()
     {
+        enemyPositionMessageQueue = new Queue<PlayerPositionMessage>();
+
         desiredPosition = enemy.transform.position;
         desiredRotation = Body.transform.rotation;
         desiredGunRotation = Gun.transform.rotation;
@@ -37,6 +39,7 @@ public class Enemy : MonoBehaviour
                 PlayerPositionMessage enemyPositionToRender = enemyPositionMessageQueue.Dequeue();
                 desiredPosition = enemyPositionToRender.currentPos;
                 desiredRotation = enemyPositionToRender.currentRot;
+                desiredGunRotation = enemyPositionToRender.gunRot;
             }
 
             SetTransform();
