@@ -73,12 +73,12 @@ public class WebSocketService : MonoBehaviour
         }
         else if (gameMessage.opcode == BulletOp)
         {
-            Debug.Log(gameMessage.message);
+            BulletMessage bulMessage = JsonUtility.FromJson<BulletMessage>(message);
+            positionManager.fireBullet(bulMessage);
         }
         else if (gameMessage.opcode == YouWonOp)
         {
             gameManager.GameOver(GameManager.WIN);
-            QuitGame();
         }
         else if (gameMessage.opcode == YouLostOp)
         {

@@ -19,6 +19,6 @@ public class PlayerPositionMessage : GameMessage
         player = playerIn;
         enemyPos = _enemyPos;
         currentPos = _currentPos;
-        moving = _moving;
+        moving = '\"'+ _moving + '\"';
     }
 }

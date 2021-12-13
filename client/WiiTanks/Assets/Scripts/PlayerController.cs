@@ -97,19 +97,18 @@ public class PlayerController : MonoBehaviour
         velocity = newDirection * speed;
 
         transform.position += velocity * Time.fixedDeltaTime;
-
         string isMoving = "no";
 
         if (velocity != Vector3.zero)
         {
             trackStart();
             isMoving = "yes";
-
             float a = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg - 90;
 
             Quaternion rotation = Quaternion.AngleAxis(a, Vector3.forward);
 
             Body.transform.rotation = Quaternion.Lerp(Body.transform.rotation, rotation, rotationSpeed * Time.fixedDeltaTime);
+            
         }
         else
         {

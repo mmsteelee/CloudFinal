@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class BulletMessage : MonoBehaviour
+[System.Serializable]
+public class BulletMessage : GameMessage
 {
-    // Start is called before the first frame update
-    void Start()
+    public SerializableQuaternion gunDir;
+    public SerializableVector3 firePoint;
+    BulletMessage(string actionIn, string opcodeIn, SerializableQuaternion _gunDir, SerializableVector3 _firepoint) 
+        : base(actionIn, opcodeIn)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gunDir = _gunDir;
+        firePoint = _firepoint;
     }
 }

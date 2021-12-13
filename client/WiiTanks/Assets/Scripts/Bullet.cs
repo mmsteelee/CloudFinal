@@ -11,6 +11,11 @@ public class Bullet : MonoBehaviour
 
     int numHits = 0;
 
+    private void Start()
+    {
+        rb.AddForce(transform.up * force, ForceMode2D.Impulse);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (numHits == maxHits || collision.gameObject.tag == "Bullet")

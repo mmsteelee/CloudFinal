@@ -9,6 +9,7 @@ public class PositionManager : MonoBehaviour
 
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
+    public GameObject bulletPrefab;
 
     public void initPlayers(PlayerPositionMessage message)
     {
@@ -19,5 +20,10 @@ public class PositionManager : MonoBehaviour
     public void updateEnemy(PlayerPositionMessage message)
     {
         enemy.GetComponent<Enemy>().BufferState(message);
+    }
+
+    public void fireBullet(BulletMessage message)
+    {
+        Instantiate(bulletPrefab, message.firePoint, message.gunDir);
     }
 }
