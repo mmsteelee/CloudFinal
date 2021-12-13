@@ -27,7 +27,6 @@ public class WebSocketService : MonoBehaviour
     public const string YouLostOp = "92";
     public const string BulletHitOp = "9";
     public const string OpponentPositionOp = "21";
-    public const string FoundMatchOp = "10";
 
     // Start is called before the first frame update
     static public WebSocketService instance() { 
@@ -43,12 +42,7 @@ public class WebSocketService : MonoBehaviour
     {
         GameMessage gameMessage = JsonUtility.FromJson<GameMessage>(message);
 
-        if (gameMessage.opcode == FoundMatchOp)
-        {
-            loadScreenText.fontSize = 10;
-            loadScreenText.text = "MatchFound";
-        } 
-        else if (gameMessage.opcode == PlayingOp)
+        if (gameMessage.opcode == PlayingOp)
         {
             Debug.Log("Playing op code received: player 2 joined, game started");
             matchId = gameMessage.uuid;
@@ -125,9 +119,9 @@ public class WebSocketService : MonoBehaviour
 
         webSocket.OnMessage += (bytes) =>
         {
-            // Debug.Log("OnMessage!");
+            Debug.Log("OnMessage!");
             string message = System.Text.Encoding.UTF8.GetString(bytes);
-            // Debug.Log(message.ToString());
+            Debug.Log(message.ToString());
 
             ProcessReceivedMessage(message);
         };
@@ -191,6 +185,17 @@ public class WebSocketService : MonoBehaviour
         SetupWebsocketCallbacks();
         FindMatch();
     }
+
+    void Update()
+    {
+#if !UNITY_WEBGL || UNITY_EDITOR
+       
+        webSocket.DispatchMessageQueue();
+        
+#endif
+    }
+
+    public void init() { }
 
     protected WebSocketService() {}
 }
