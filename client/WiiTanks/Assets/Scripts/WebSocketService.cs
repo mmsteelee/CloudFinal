@@ -139,9 +139,9 @@ public class WebSocketService : MonoBehaviour
     }
 
 
-    public void SendPosition(Vector3 pos, Quaternion rot, Quaternion gunRot, string moving)
+    public void SendPosition(Vector3 pos, Quaternion rot, Quaternion gunRot, string moving, int seq)
     {
-        GameMessage posMessage = new PlayerPositionMessage("OnMessage", OpponentPositionOp, gunRot, rot, pos, new SerializableVector3(), "", moving);
+        GameMessage posMessage = new PlayerPositionMessage("OnMessage", OpponentPositionOp, gunRot, rot, pos, new SerializableVector3(), "", moving, seq);
         posMessage.uuid = matchId;
         SendWebSocketMessage(JsonUtility.ToJson(posMessage));
     }

@@ -6,14 +6,24 @@ public class Bullet : MonoBehaviour
 {
     public int maxHits = 2;
     public Rigidbody2D rb;
+    public GameObject bullet;
     public GameObject explosion;
     public float force = 30f;
+    public float maxDist;
 
     int numHits = 0;
 
     private void Start()
     {
         rb.AddForce(transform.up * force, ForceMode2D.Impulse);
+    }
+
+    private void Update()
+    {
+        if (transform.position.magnitude > maxDist)
+        {
+            Destroy(bullet);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

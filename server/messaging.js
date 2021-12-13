@@ -109,13 +109,17 @@ exports.handler = (event, context, callback) => {
                      opcodeStart + ', "gunRot": ' + buildQuaternionObject(initRotation) + 
                      ', "currentRot": ' + buildQuaternionObject(initRotation) + 
                      ', "currentPos": ' + buildPositionObject(p1StartPos) +
-                     ', "enemyPos": ' + buildPositionObject(p2StartPos) + ', "player": "1" }');
+                     ', "enemyPos": ' + buildPositionObject(p2StartPos) + 
+                     ', "seq" : ' + message.seq + 
+                     ', "player": "1" }');
 
                   send(data.Items[0].player2, '{ "uuid": ' + data.Items[0].uuid + ', "opcode": ' +
                   opcodeStart + ', "gunRot": ' + buildQuaternionObject(initRotation) + 
                   ', "currentRot": ' + buildQuaternionObject(initRotation) + 
                   ', "currentPos": ' + buildPositionObject(p2StartPos) +
-                  ', "enemyPos": ' + buildPositionObject(p1StartPos) + ', "player": "2" }');
+                  ', "enemyPos": ' + buildPositionObject(p1StartPos) + 
+                  ', "seq" : ' + message.seq + 
+                  ', "player": "2" }');
                }
             });
 

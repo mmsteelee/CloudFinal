@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     private Quaternion desiredRotation;
     private Quaternion desiredGunRotation;
     private bool moving = false;
+    private int seq = 0;
 
     public float maxSpeed;
     public float rotationSpeed;
@@ -38,10 +39,14 @@ public class Enemy : MonoBehaviour
             if (enemyPositionMessageQueue.Count != 0)
             {
                 PlayerPositionMessage enemyPositionToRender = enemyPositionMessageQueue.Dequeue();
-                desiredPosition = enemyPositionToRender.currentPos;
-                desiredRotation = enemyPositionToRender.currentRot;
-                desiredGunRotation = enemyPositionToRender.gunRot;
-                moving = enemyPositionToRender.moving == "yes";
+                if (enemyPositionToRender.seq >= seq)
+                {
+                    desiredPosition = enemyPositionToRender.currentPos;
+                    desiredRotation = enemyPositionToRender.currentRot;
+                    desiredGunRotation = enemyPositionToRender.gunRot;
+                    moving = enemyPositionToRender.moving == "yes";
+                    seq = enemyPositionToRender.seq;
+                }
             }
 
             SetTransform();

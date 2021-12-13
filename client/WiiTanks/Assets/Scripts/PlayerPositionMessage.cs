@@ -9,9 +9,10 @@ public class PlayerPositionMessage : GameMessage
     public SerializableVector3 enemyPos;
     public string player;
     public string moving;
+    public int seq;
 
     public PlayerPositionMessage(string actionIn, string opcodeIn, SerializableQuaternion _gunRot, SerializableQuaternion _currentRot, 
-                                SerializableVector3 _currentPos, SerializableVector3 _enemyPos, string playerIn, string _moving)
+                                SerializableVector3 _currentPos, SerializableVector3 _enemyPos, string playerIn, string _moving, int _seq)
        : base(actionIn, opcodeIn)
     {
         gunRot = _gunRot;
@@ -20,5 +21,6 @@ public class PlayerPositionMessage : GameMessage
         enemyPos = _enemyPos;
         currentPos = _currentPos;
         moving = '\"'+ _moving + '\"';
+        seq = _seq;
     }
 }

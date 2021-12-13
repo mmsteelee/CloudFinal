@@ -275,9 +275,9 @@ MonoBehaviour:
   keyMoveReverse: s
   keyMoveRight: d
   keyMoveLeft: a
-  maxSpeed: 6
-  rotationSpeed: 4
-  acceleration: 0.1
+  maxSpeed: 4
+  rotationSpeed: 3
+  acceleration: 0.2
   deceleration: 0.3
 --- !u!114 &8440132107705368900
 MonoBehaviour:
@@ -293,6 +293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 8440132108671570094}
   bulletPrefab: {fileID: 6410678406612253237, guid: b037514a9daf80444853b104d490034e, type: 3}
+  coolDown: 0.7
 --- !u!95 &8440132107705368890
 Animator:
   serializedVersion: 3
@@ -505,7 +506,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8440132108593206637}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.8, y: 0, z: 0}
+  m_LocalPosition: {x: -0.8, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 8440132108370316313}
@@ -733,7 +734,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8440132109072572141}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.8, y: 0, z: 0}
+  m_LocalPosition: {x: 0.8, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 8440132108370316313}

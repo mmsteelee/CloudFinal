@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     float speed = 0f;
     Vector3 velocity;
+    int seq = 0;
 
     private void Start()
     {
@@ -115,7 +116,8 @@ public class PlayerController : MonoBehaviour
             trackStop();
         }
 
-        WebSocketService.instance().SendPosition(transform.position, Body.transform.rotation, Gun.transform.rotation, isMoving);
+        WebSocketService.instance().SendPosition(transform.position, Body.transform.rotation, Gun.transform.rotation, isMoving, seq);
+        ++seq;
 
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
         Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
