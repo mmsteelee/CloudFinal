@@ -510,11 +510,11 @@ static const int32_t s_InvokerIndices[126] =
 	1271,
 	768,
 	708,
-	209,
+	210,
 	1271,
 	768,
 	706,
-	208,
+	209,
 	1271,
 };
 static const Il2CppTokenIndexMethodTuple s_reversePInvokeIndices[4] = 

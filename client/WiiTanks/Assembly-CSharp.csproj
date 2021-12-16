@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\MenuButton.cs" />
     <Compile Include="Assets\Scripts\Loading.cs" />
     <Compile Include="Assets\Scripts\Track.cs" />
+    <Compile Include="Assets\Scripts\FindNewMatch.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\Shooting.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -71,7 +72,7 @@
     <Compile Include="Assets\Scripts\SerializableQuaternion.cs" />
     <Compile Include="Assets\Scripts\BulletMessage.cs" />
     <Compile Include="Assets\Scripts\UnityMainThreadHelper.cs" />
-    <Compile Include="Assets\Scripts\FindNewMatch.cs" />
+    <Compile Include="Assets\Scripts\StartText.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Materials\TextMesh Pro\Shaders\TMPro.cginc" />

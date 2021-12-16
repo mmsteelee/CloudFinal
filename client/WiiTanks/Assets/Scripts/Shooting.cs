@@ -5,34 +5,31 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     public Transform firePoint;
-    public GameObject bulletPrefab;
-
+    public GameObject player;
     public float coolDown;
 
     private float timeSinceShot;
 
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         timeSinceShot = coolDown;
     }
 
     // Update is called once per frame
-
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && timeSinceShot > coolDown)
+        if (!player.GetComponent<PlayerController>().canMove)
         {
-            Shoot();
-            timeSinceShot = 0f;
+            return;
+        }
+
+        if (Input.GetMouseButtonUp(0) && timeSinceShot > coolDown)
+        {
+            player.GetComponent<PlayerController>().Shoot();
         } else
         {
             timeSinceShot += Time.deltaTime;
         }
-    }
-
-    void Shoot()
-    {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        WebSocketService.instance().SendShoot(firePoint.position, firePoint.rotation);
     }
 }

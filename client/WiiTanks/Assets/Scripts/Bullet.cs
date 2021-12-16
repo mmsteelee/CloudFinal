@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (numHits == maxHits || collision.gameObject.tag == "Bullet")
+        if (numHits == maxHits || collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "Tank")
         {
             GameObject exp = Instantiate(explosion, transform.position, transform.rotation);
             Destroy(exp, 0.5f);

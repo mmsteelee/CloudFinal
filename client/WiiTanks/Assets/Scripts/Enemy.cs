@@ -32,16 +32,14 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy start");
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void Explode()
     {
-        if (collision.gameObject.tag == "Bullet")
-        {
-            Vector3 expPos = transform.position;
-            expPos.z = -6;
-            GameObject exp = Instantiate(explosion, expPos, Quaternion.identity);
-            enemy.SetActive(false);
-            exp.transform.localScale = new Vector3(10, 10);
-        }
+        Vector3 expPos = transform.position;
+        expPos.z = -6;
+        GameObject exp = Instantiate(explosion, expPos, Quaternion.identity);
+        Body.SetActive(false);
+        Gun.SetActive(false);
+        exp.transform.localScale = new Vector3(10, 10);
     }
 
     private void FixedUpdate()

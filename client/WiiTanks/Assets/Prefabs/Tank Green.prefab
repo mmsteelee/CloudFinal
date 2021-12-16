@@ -129,12 +129,12 @@ GameObject:
   - component: {fileID: 8440132107705368902}
   - component: {fileID: 8440132107705368897}
   - component: {fileID: 8440132107705368899}
-  - component: {fileID: 8440132107705368900}
   - component: {fileID: 8440132107705368890}
   - component: {fileID: 8440132107705368901}
+  - component: {fileID: 7147270927051482704}
   m_Layer: 0
   m_Name: Tank Green
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -245,7 +245,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -272,29 +272,17 @@ MonoBehaviour:
   Body: {fileID: 8440132108370316312}
   manager: {fileID: 0}
   explosion: {fileID: 2303601591357147336, guid: da094f077703cd84a8ed5d445f0a2306, type: 3}
+  firePoint: {fileID: 8440132108671570094}
+  bulletPrefab: {fileID: 6410678406612253237, guid: b037514a9daf80444853b104d490034e, type: 3}
   keyMoveForward: w
   keyMoveReverse: s
   keyMoveRight: d
   keyMoveLeft: a
-  maxSpeed: 3
-  rotationSpeed: 3
+  maxSpeed: 5
+  rotationSpeed: 4
   acceleration: 0.3
   deceleration: 0.3
---- !u!114 &8440132107705368900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8440132107705368909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b80fb291d9b4cb14a8f6941408f32f71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 8440132108671570094}
-  bulletPrefab: {fileID: 6410678406612253237, guid: b037514a9daf80444853b104d490034e, type: 3}
-  coolDown: 0.7
+  canMove: 0
 --- !u!95 &8440132107705368890
 Animator:
   serializedVersion: 3
@@ -365,6 +353,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7147270927051482704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440132107705368909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80fb291d9b4cb14a8f6941408f32f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 8440132108671570094}
+  player: {fileID: 8440132107705368909}
+  coolDown: 5.07
 --- !u!1 &8440132108048908471
 GameObject:
   m_ObjectHideFlags: 0

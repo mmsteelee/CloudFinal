@@ -13,25 +13,41 @@ public class PlayerController : MonoBehaviour
     public GameObject Body;
     public GameObject manager;
     public GameObject explosion;
+    public Transform firePoint;
+    public GameObject bulletPrefab;
 
     public string keyMoveForward;
     public string keyMoveReverse;
     public string keyMoveRight;
     public string keyMoveLeft;
-
+    
+   // public float coolDown;
     public float maxSpeed;
     public float rotationSpeed;
     public float acceleration;
     public float deceleration;
 
+    public bool canMove;
+
     float speed = 0f;
     Vector3 velocity;
     int seq;
-
+  //  private float timeSinceShot;
     private void Start()
     {
         seq = 0;
+        canMove = false;
         manager = GameObject.Find("GameManager");   
+    }
+
+    public void Explode()
+    {
+        Vector3 expPos = transform.position;
+        expPos.z = -6;
+        GameObject exp = Instantiate(explosion, expPos, Quaternion.identity);
+        Body.SetActive(false);
+        Gun.SetActive(false);
+        exp.transform.localScale = new Vector3(10, 10);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -54,7 +70,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        PlayerMove();
+        if (canMove)
+        {
+            PlayerMove();
+        }
     }
 
 
@@ -117,14 +136,17 @@ public class PlayerController : MonoBehaviour
             Quaternion rotation = Quaternion.AngleAxis(a, Vector3.forward);
 
             Body.transform.rotation = Quaternion.Lerp(Body.transform.rotation, rotation, rotationSpeed * Time.fixedDeltaTime);
-            
+
         }
         else
         {
             trackStop();
         }
 
-        WebSocketService.instance().SendPosition(transform.position, Body.transform.rotation, Gun.transform.rotation, isMoving, seq);
+        if (seq % 2 == 0)
+        {
+            WebSocketService.instance().SendPosition(transform.position, Body.transform.rotation, Gun.transform.rotation, isMoving, seq);
+        }
         ++seq;
 
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
@@ -137,4 +159,10 @@ public class PlayerController : MonoBehaviour
     {
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
+    public void Shoot()
+    {
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        WebSocketService.instance().SendShoot(firePoint.position, firePoint.rotation);
+    }
+
 }

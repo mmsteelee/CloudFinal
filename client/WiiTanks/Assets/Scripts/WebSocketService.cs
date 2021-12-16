@@ -57,14 +57,12 @@ public class WebSocketService : MonoBehaviour
             {
                 enemyNum = "1";
             }
-
-            // init the player
-            positionManager.initPlayers(posMessage);
-
-            matchInitialized = true;
-
+            
             Debug.Log("Turning loading screen off");
             loadScreen.SetActive(false);
+            matchInitialized = true;
+            // init the player
+            positionManager.initPlayers(posMessage);
         }
         else if (gameMessage.opcode == OpponentPositionOp)
         {
@@ -78,10 +76,12 @@ public class WebSocketService : MonoBehaviour
         }
         else if (gameMessage.opcode == YouWonOp)
         {
+            intentionalClose = true;
             gameManager.GameOver(GameManager.WIN);
         }
         else if (gameMessage.opcode == YouLostOp)
         {
+            intentionalClose = true;
             gameManager.GameOver(GameManager.LOST);
         }
         else if (gameMessage.opcode == FirstToJoinOp)

@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 8395450863805689771}
   m_Layer: 0
   m_Name: Tank Red
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -306,7 +306,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -335,7 +335,6 @@ MonoBehaviour:
   trackRight: {fileID: 1088410880045805715}
   maxSpeed: 10
   rotationSpeed: 10
-  minSpeed: 0.001
 --- !u!1 &1088410879781684842
 GameObject:
   m_ObjectHideFlags: 0
